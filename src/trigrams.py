@@ -2,6 +2,7 @@
 
 import random
 import io
+import sys
 
 
 def get_txt(filename='sherlock.txt'):
@@ -32,9 +33,11 @@ def trigrams(text):
         return tridict
 
 
-def gen_txt(word1="on", word2="the", length=200):
+def gen_txt(length=200):
         """Generate new text."""
-        dct = trigrams(get_txt())
+        dct = trigrams(get_txt(sys.argv[1]))
+        word0 = next(iter(dct))
+        word1, word2 = word0.split(" ")[0], word0.split(" ")[1]
         newtxt = word1 + " " + word2
         for i in range(2, length):
                 word3 = random.sample(dct[word1 + " " + word2], 1)[0]
@@ -42,5 +45,6 @@ def gen_txt(word1="on", word2="the", length=200):
                 word1, word2 = word2, word3
         return newtxt
 
-print(gen_txt())
-# print(trigrams(get_txt()))
+
+if __name__ == "__main__":
+        print(gen_txt(int(sys.argv[2])))
