@@ -14,7 +14,7 @@ def get_txt(filename='sherlock.txt'):
 
 
 def trigrams(text):
-        """Convert tex to dictionary."""
+        """Convert text to dictionary."""
         trigrams = []
         tridict = {}
         text = text.split()
@@ -33,9 +33,9 @@ def trigrams(text):
         return tridict
 
 
-def gen_txt(length=200):
+def main(address, length=200):
         """Generate new text."""
-        dct = trigrams(get_txt(sys.argv[1]))
+        dct = trigrams(get_txt(address))
         word0 = next(iter(dct))
         word1, word2 = word0.split(" ")[0], word0.split(" ")[1]
         newtxt = word1 + " " + word2
@@ -43,8 +43,12 @@ def gen_txt(length=200):
                 word3 = random.sample(dct[word1 + " " + word2], 1)[0]
                 newtxt += " " + word3
                 word1, word2 = word2, word3
+                if i % 15 == 0:
+                    newtxt += '\n'
+                if i % 90 == 0:
+                    newtxt += '\n'
         return newtxt
 
 
 if __name__ == "__main__":
-        print(gen_txt(int(sys.argv[2])))
+        print(main(sys.argv[1], int(sys.argv[2])))
