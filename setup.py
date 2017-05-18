@@ -1,3 +1,4 @@
+"""This is the Setup."""
 from setuptools import setup
 
 
@@ -9,6 +10,5 @@ setup(
     license='MIT',
     py_modules=['trigrams'],
     package_dir={'': 'src'},
-    extras_require={'testing': ['pytest']},
-    entry_points={'console_scripts': ['trigrams = trigrams:main']}
+    extras_require={'testing': ['pytest']}
 )
