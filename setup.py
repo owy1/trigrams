@@ -10,5 +10,5 @@ setup(
     license='MIT',
     py_modules=['trigrams'],
     package_dir={'': 'src'},
-    extras_require={'testing': ['pytest']}
+    extras_require={'testing': ['pytest', 'tox']}
 )

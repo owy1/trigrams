@@ -8,7 +8,7 @@ import sys
 PATH = os.path.join(os.path.dirname(__file__), 'test.txt')
 
 
-def get_txt(filename=PATH):
+def get_text(filename=PATH):
         """Read file."""
         f = io.open(filename, encoding='utf-8')
         text = f .read()
@@ -16,7 +16,7 @@ def get_txt(filename=PATH):
         return text
 
 
-def trigrams(text):
+def create_trigrams_dict(text):
         """Convert text to dictionary."""
         trigrams = []
         tridict = {}
@@ -36,15 +36,14 @@ def trigrams(text):
         return tridict
 
 
-def main(address=PATH, length=200):
+def generate_trigrams_string(dictionary, length):
     """Generate new text."""
-    dct = trigrams(get_txt(address))
-    word0 = next(iter(dct))
+    word0 = next(iter(dictionary))
     word1, word2 = word0.split(" ")[0], word0.split(" ")[1]
     newtxt = word1 + " " + word2
     for i in range(2, length):
         try:
-            word3 = random.sample(dct[word1 + " " + word2], 1)[0]
+            word3 = random.sample(dictionary[word1 + " " + word2], 1)[0]
         except KeyError:
             word2, word3 = word0.split(" ")[0], word0.split(" ")[1]
         newtxt += " " + word3
@@ -54,6 +53,12 @@ def main(address=PATH, length=200):
         if i % 90 == 0:
             newtxt += '\n'
     return newtxt
+
+
+def main(address=PATH, length=200):
+    """Call create_trigrams_dict and generate_trigrams_string."""
+    dct = create_trigrams_dict(get_text(address))
+    return generate_trigrams_string(dct, length)
 
 
 if __name__ == "__main__":  # pragma: no cover
